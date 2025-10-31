@@ -1,6 +1,7 @@
-warp-cli disconnect
-warp-cli status
 
+echo " ...  关闭其他所有代理 ...  "
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+${SCRIPT_DIR}/switch-to-none.sh
 
 # 设置代理配置
 echo "Change proxy config..."

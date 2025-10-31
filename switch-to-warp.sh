@@ -1,11 +1,8 @@
 #!/bin/bash
 
-echo "正在关闭 PAC 和 SOCKS5 ..."
-echo " ...   set autoproxy state  off   "
-networksetup -setautoproxystate "Wi-Fi" off;
-echo " ...   set socks firewallproxystate  off   "
-networksetup -setsocksfirewallproxystate "Wi-Fi" off
-
+echo " ...  关闭其他所有代理 ...  "
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+${SCRIPT_DIR}/switch-to-none.sh
 
 echo "正在连接 Warp..."
 warp-cli connect
