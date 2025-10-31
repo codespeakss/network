@@ -1,13 +1,26 @@
 #!/bin/bash
 
+    port=7890
+    nc -z 127.0.0.1 $port >/dev/null 2>&1
+    if [ $? -eq 0 ]; then
+        echo "✅ 端口 $port 正在工作"
+    else
+        echo "❌ 端口 $port 未监听"
+        exit 1
+    fi
+
 echo "Setting SOCKS5 proxy on Wi-Fi (127.0.0.1:7890)..."
+
+echo "  ...  turn off WARP  ...  "
+warp-cli disconnect
+warp-cli status
+
+# 可选：关闭自动代理（PAC），避免冲突
+networksetup -setautoproxystate "Wi-Fi" off
 
 # 设置 Wi-Fi 网络的 SOCKS5 代理
 networksetup -setsocksfirewallproxy "Wi-Fi" 127.0.0.1 7890
 networksetup -setsocksfirewallproxystate "Wi-Fi" on
-
-# 可选：关闭自动代理（PAC），避免冲突
-networksetup -setautoproxystate "Wi-Fi" off
 
 echo "Testing proxy..."
 

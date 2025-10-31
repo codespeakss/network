@@ -1,6 +1,5 @@
 #!/bin/bash
 
-# 关闭 PAC 和 SOCKS5
 echo "正在关闭 PAC 和 SOCKS5 ..."
 echo " ...   set autoproxy state  off   "
 networksetup -setautoproxystate "Wi-Fi" off;
@@ -8,16 +7,12 @@ echo " ...   set socks firewallproxystate  off   "
 networksetup -setsocksfirewallproxystate "Wi-Fi" off
 
 
-
-# 尝试连接 warp
 echo "正在连接 Warp..."
 warp-cli connect
 
-# 设置超时时间（秒）
 TIMEOUT=15
 elapsed=0
 
-# 每秒检查状态
 while true; do
     status=$(warp-cli status | grep "Status update")
 
